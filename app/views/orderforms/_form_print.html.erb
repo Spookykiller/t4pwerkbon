@@ -1,0 +1,100 @@
+<%= form_for [@order, @orderform], :html => {:class =>  'form-horizontal form-label-left', :remote => true } do |f| %>
+    <% if @orderform.errors.any? %>
+        <h2><%= pluralize(@orderform.errors.count, "error")%> zorgde ervoor dat de klant niet opgeslagen kon worden.</h2>
+        <ul>
+            <% @orderform.errors.full_messages.each do |msg| %>
+                <li><%= msg %></li>
+            <% end %>
+        </ul>
+    <% end %>
+    <div id="general_info">
+        <div id="left">
+            <%= f.label :name, 'Werkbon naam', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
+            <%= f.text_field :name, class: 'form-control col-md-7 col-xs-12' %><br>
+            
+            <%= f.label :werkbon_type, 'Werkbon', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
+            <%= f.select :werkbon_type, ['Gordijnen', 'Vouwgordijnen', 'Raamdecoratie', 'Vloeren', 'Behang', 'Karpetten', 'Meubels en lampen'], class: 'form-control col-md-7 col-xs-12', id: 'werkbon_type' %><br>
+
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">Debiteurnummer</label>
+            <input class="form-control col-md-7 col-xs-12" value="<%= @order.debtorid %>" type="text"><br>
+            
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">Projectnummer</label>
+            <input class="form-control col-md-7 col-xs-12" value="<%= @order.project_nummer %>" type="text"><br>
+            
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">Naam klant</label>
+            <input class="form-control col-md-7 col-xs-12" value="<%= @order.naam %>" type="text"><br>
+            
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">Adres</label>
+            <input class="form-control col-md-7 col-xs-12" value="<%= @order.AdressLine1 %>" type="text"><br>
+            <input class="form-control col-md-7 col-xs-12" value="<%= @order.AdressLine3 %>" type="text"><br>
+            <input class="form-control col-md-7 col-xs-12" value="<%= @order.AdressLine4 %>" type="text"><br>
+            <br>
+            <br>
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">Navigatie adres</label>
+            <input class="form-control col-md-7 col-xs-12" value="<%= @order.navigatie_adres %>" type="text"><br>
+            
+        </div>
+        
+        <div id="right">
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">Telefoon</label>
+            <input class="form-control col-md-7 col-xs-12" value="<%= @order.telefoon %>" type="text"><br>
+            
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">E-mail</label>
+            <input class="form-control col-md-7 col-xs-12" value="<%= @order.email %>" type="text"><br>
+
+            <%= f.label :organisatie, 'Organisatie', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
+            <%= f.select(:organisatie,{ "T4P" => 1, "T4L WW" => 2, "T4L A'F" => 3, "T4L A'dam" => 4, "T4L Breda" => 5}) %>
+            
+            <br>
+            
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">Contactpersoon</label>
+            <input class="form-control col-md-7 col-xs-12" value="<%= @order.contactpersoon %>" type="text"><br>
+
+            <%= f.label :datum, 'Datum', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
+            <%= f.text_field :datum, class: 'form-control col-md-7 col-xs-12', id: 'datepicker' %><br>
+
+            <%= f.label :werkvoorbereider, 'Ingevuld door', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
+            <%= f.text_field :werkvoorbereider, class: 'form-control col-md-7 col-xs-12' %><br>
+
+            <% if (f.object.oplevering.blank?) %>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Oplevering</label>
+                <input class="form-control col-md-7 col-xs-12" value="<%= @order.oplevering %>" type="text"><br>
+            <% else %>
+                <%= f.label :oplevering, 'Opleveringsdatum', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
+                <%= f.text_field :oplevering, class: 'form-control col-md-7 col-xs-12' %><br>
+            <% end %>
+
+            <label class="control-label col-md-3 col-sm-3 col-xs-12">Ons ordernummer</label>
+            <input class="form-control col-md-7 col-xs-12" value="<%= @order.ordernummer %>" type="text"><br>
+
+            <%= f.label :totale_prijs, 'Totaal bedrag', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
+            <%= f.number_field :totale_prijs, class: 'form-control col-md-7 col-xs-12', id: 'werkbon_totale_prijs' %><br>
+        </div>
+    </div>
+    
+    <br>
+    
+    <%= render partial: 'orderforms/details/form_print_details', locals: { f: f } %>
+    
+    <br>
+    
+    <%= render partial: 'orderforms/calculations/form_edit_calculations', locals: { f: f } %>
+    
+    <br>
+    
+    <%= f.label :bijzonderheden, 'Bijzonderheden', class: 'control-label col-md-3 col-sm-3 col-xs-12' %><br>
+    <%= f.text_area :bijzonderheden, :id => "bijzonderheden_area" %>
+    
+    <br>
+    
+    <div class="center">
+        <input type="radio" name="printstyle" value="wit">Wit
+        <input type="radio" name="printstyle" value="geel">Geel<br>
+        <%= link_to "Print", '#', onclick: "printpage()" %>
+        <br>
+        <br>
+        <%= link_to 'Werkbon omdraaien', {:direction => "reverse"}, :class => 'annuleren' %>
+    </div>
+    
+<% end %>
+    

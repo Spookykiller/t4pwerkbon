@@ -1,0 +1,37 @@
+= form_for @leverancier do |f|
+  - if @leverancier.errors.any?
+    %h3
+      = pluralize(@leverancier.errors.count, "error")
+      zorgde ervoor dat de klant niet opgeslagen kon worden.
+    %ul
+      - @leverancier.errors.full_messages.each do |msg|
+        %li
+          %p= msg
+  .center
+    .column
+      = f.label :sequence_id, "Volgorde op werkbon", class: 'control-label col-md-3 col-sm-3 col-xs-12'
+      %br
+      = f.number_field :sequence_id
+      %br
+      %br
+      = f.label :leverancier_werkbon, 'Werkbon', class: 'control-label col-md-3 col-sm-3 col-xs-12'
+      %br
+      = f.select :leverancier_werkbon, ['Gordijnen', 'Vouwgordijnen', 'Raamdecoratie', 'Vloeren', 'Behang', 'Karpetten', 'Meubels en lampen']
+      %br
+      %br
+      = f.label :leverancier_label, 'Naam leverancier', class: 'control-label col-md-3 col-sm-3 col-xs-12'
+      %br
+      = f.text_field :leverancier_label
+      %br
+      %br
+      %h3 Regels
+      %br
+      #dropdowns
+        = f.fields_for :leverancier_regels do |regel|
+          = render 'leverancier_regel_fields', f: regel
+        .links
+          = link_to_add_association 'Voeg regel toe', f, :leverancier_regels, :class => 'regel'
+  .center
+    = f.submit 'Opslaan', :class => 'new_werkbon'
+    %br
+    = link_to 'Annuleren', leveranciers_path, :class => 'annuleren'

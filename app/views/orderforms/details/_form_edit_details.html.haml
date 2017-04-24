@@ -1,0 +1,11 @@
+%table
+  %head
+    %tr
+      = render 'orderforms/details/detail_headers'
+  %tbody
+    #tasks
+      = f.fields_for :items, f.object.items.order(:created_at) do |item|
+        - if item.object.werkbon_type == @orderform.werkbon_type
+          = render 'orderforms/details/rows/leverancier_edit_details', f: item
+          = render 'orderforms/details/rows/leverancier_regel_edit_details', f: item
+

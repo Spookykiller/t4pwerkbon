@@ -1,0 +1,13 @@
+%table
+  %thead
+    %tr
+      = render partial: 'orderforms/calculations/calculation_headers'
+  %tbody.calculations
+    #tasks
+      = f.fields_for :calculations, f.object.calculations.order(:created_at) do |calculation|
+        = render 'orderforms/calculations/calculation_fields', f: calculation
+.links
+  = link_to_add_association 'Voeg berekening toe', f, :calculations,
+  partial: 'orderforms/calculations/calculation_fields',
+  'data-association-insertion-method' => 'append',
+  'data-association-insertion-node' => 'tbody.calculations', :class => 'add_calculation'

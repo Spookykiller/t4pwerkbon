@@ -1,0 +1,20 @@
+%tr.row
+  .leverancier_loop
+    .field
+      %td.numbers_width
+        = f.number_field :hoeveelheid, :class => "item_hoeveelheid", :step => '0.01'
+      %td.label
+        = f.label :var2, leverancier.leverancier_label, :class => "leverancier"
+      %td.var1
+        = f.hidden_field :var2_name, :value => leverancier.leverancier_label
+        - if leverancier.leverancier_regels.count > 0
+          = f.select(:var2, leverancier.leverancier_regels.map { |value| [ value.input, value.input ] }, {:include_blank => true})
+        - else
+          = f.text_field :var2, placeholder: "Type hier", :class => "leverancier_input"
+      %td.var2
+        = f.select :var4, ["Op voorraad", "Bestellen"], :include_blank => true
+      %td.numbers_width
+        = f.number_field :prijs, :class => "item_artikel_prijs", :step => '0.01'
+      %td.numbers_width
+        = f.number_field :totale_prijs, :class => "item_totaal_prijs", :step => '0.01'
+        = f.hidden_field :werkbon_type, :id => "item_werkbon_type", :value => leverancier.leverancier_werkbon
