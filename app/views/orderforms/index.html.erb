@@ -1,5 +1,5 @@
 <div class="center">
-    <h3>Werkbonnen van `<%= @order.debtorid %>` order</h3>
+    <h3>Lopende werkbonnen van `<%= @order.debtorid %>`</h3>
 </div>
 
 <br>
@@ -9,8 +9,8 @@
         <tr>
             <th colspan="2">Werkbontype</th>
             <th>Naam</th>
+            <th>Organisatie</th>            
             <th>Ingevuld door</th>
-            <th>Organisatie</th>
             <th>Datum</th>
             <th>Acties</th>
             <th>Fase managment</th>
@@ -42,16 +42,22 @@
                 <td class="index"><%= orderform.datum %></td>
                 <td class="index">
                     <%= link_to "Print", print_order_orderform_path(@order, orderform) %>
-                    <%= link_to edit_order_orderform_path(@order, orderform) do %>
-                        <img src="/images/pencil-edit-button.png" alt="Edit" class="edit_icon">
-                    <% end %>
-                    <%= link_to order_orderform_path(@order, orderform), method: :delete, data: { confirm: "Weet je zeker dat je deze werkbon wilt verwijderen" } do %>
-                        <img src="/images/delete.png" alt="Delete" class="edit_icon">
+                    <% if !orderform.backup %>
+                        <%= link_to edit_order_orderform_path(@order, orderform) do %>
+                            <img src="/images/pencil-edit-button.png" alt="Edit" class="edit_icon">
+                        <% end %>
+                        <%= link_to order_orderform_path(@order, orderform), method: :delete, data: { confirm: "Weet je zeker dat je deze werkbon wilt verwijderen" } do %>
+                            <img src="/images/delete.png" alt="Delete" class="edit_icon">
+                        <% end %>
                     <% end %>
                 </td>
                 <td class="index">
-                    <%= link_to nextstate_order_orderform_path(@order, orderform) do %>
-                        <button type="button" class="btn btn-success"><%= fase_status_text(orderform.status) %> ➦</button>
+                    <% if orderform.backup %>
+                        <button type="button" class="btn btn-warning" disabled>x</button>
+                    <% else %>
+                        <%= link_to nextstate_order_orderform_path(@order, orderform) do %>
+                            <button type="button" class="btn btn-success"><%= fase_status_text(orderform.status) %> ➦</button>
+                        <% end %>
                     <% end %>
                 </td>
                 <td class="index">
@@ -78,7 +84,13 @@
                 </td>
                 <td class="index">
                     <% if orderform.status == 2 %>
-                        <img src="/images/status/checked_icon.png" alt="Huidige versie" class="edit_icon">
+                        <% if orderform.backup %>
+                            <%= link_to print_order_orderform_path(@order, orderform) do %>
+                                <img src="/images/status/backup_icon.png" alt="Backup versie" class="edit_icon">
+                            <% end %>
+                        <% else %>
+                            <img src="/images/status/checked_icon.png" alt="Huidige versie" class="edit_icon">
+                        <% end %>
                     <% elsif orderform.status < 2 %>  
                         <img src="/images/status/unchecked_icon.png" alt="Versie status nog niet bereikt" class="edit_icon">
                     <% else %>
@@ -98,3 +110,118 @@
         <button class="new_werkbon">Nieuwe offerte +</button>
     <% end %>
 </div>
+
+<% if @backup_orderforms.any? %>
+    
+    <br>
+    <br>
+    <br>
+    
+    <div class="center">
+        <h3>Backup werkbonnen van `<%= @order.debtorid %>`</h3>
+    </div>
+    
+    
+    <br>
+    
+    <table border="1" style="width:100%">
+        <thead>
+            <tr>
+                <th colspan="2">Werkbontype</th>
+                <th>Naam</th>
+                <th>Organisatie</th>            
+                <th>Ingevuld door</th>
+                <th>Datum</th>
+                <th>Acties</th>
+                <th>Fase managment</th>
+                <th>Offerte</th>
+                <th>Meting</th>
+                <th>Definitief</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% @backup_orderforms.each do |orderform| %>
+                <tr>
+                    <td class="index"><%= orderform_type_image(orderform.werkbon_type) %></td>
+                    <td class="index"><%= orderform.werkbon_type %></td>
+                    <td class="index"><%= orderform.name %></td>
+                    <td class="index">
+                    <% if orderform.organisatie == 1 %>
+                        T4P
+                    <% elsif orderform.organisatie == 2 %>
+                        T4L WW
+                    <% elsif orderform.organisatie == 3 %>
+                        T4L A'F
+                    <% elsif orderform.organisatie == 4 %>
+                        T4L A'dam
+                    <% elsif orderform.organisatie == 5 %>
+                        T4L Breda
+                    <% end %>
+                    </td>
+                    <td class="index"><%= orderform.werkvoorbereider %></td>
+                    <td class="index"><%= orderform.datum %></td>
+                    <td class="index">
+                        <%= link_to "Print", print_order_orderform_path(@order, orderform) %>
+                        <% if !orderform.backup %>
+                            <%= link_to edit_order_orderform_path(@order, orderform) do %>
+                                <img src="/images/pencil-edit-button.png" alt="Edit" class="edit_icon">
+                            <% end %>
+                            <%= link_to order_orderform_path(@order, orderform), method: :delete, data: { confirm: "Weet je zeker dat je deze werkbon wilt verwijderen" } do %>
+                                <img src="/images/delete.png" alt="Delete" class="edit_icon">
+                            <% end %>
+                        <% end %>
+                    </td>
+                    <td class="index">
+                        <% if orderform.backup %>
+                            <button type="button" class="btn btn-warning" disabled>x</button>
+                        <% else %>
+                            <%= link_to nextstate_order_orderform_path(@order, orderform) do %>
+                                <button type="button" class="btn btn-success"><%= fase_status_text(orderform.status) %> ➦</button>
+                            <% end %>
+                        <% end %>
+                    </td>
+                    <td class="index">
+                        <% if orderform.status == 0 %>
+                            <img src="/images/status/checked_icon.png" alt="Huidige versie" class="edit_icon">
+                        <% elsif orderform.status < 0 %>  
+                            <img src="/images/status/unchecked_icon.png" alt="Versie status nog niet bereikt" class="edit_icon">
+                        <% else %>
+                            <%= link_to print_order_orderform_path(@order, (Orderform.where("status = ? AND group_id = ?", 0, orderform.id).first)) do %>
+                                <img src="/images/status/backup_icon.png" alt="Backup versie" class="edit_icon">
+                            <% end %>
+                        <% end %>
+                    </td>
+                    <td class="index">
+                        <% if orderform.status == 1 %>
+                            <img src="/images/status/checked_icon.png" alt="Huidige versie" class="edit_icon">
+                        <% elsif orderform.status < 1 %>  
+                            <img src="/images/status/unchecked_icon.png" alt="Versie status nog niet bereikt" class="edit_icon">
+                        <% else %>
+                            <%= link_to print_order_orderform_path(@order, (Orderform.where("status = ? AND group_id = ?", 1, orderform.id).first)) do %>
+                                <img src="/images/status/backup_icon.png" alt="Backup versie" class="edit_icon">
+                            <% end %>
+                        <% end %>
+                    </td>
+                    <td class="index">
+                        <% if orderform.status == 2 %>
+                            <% if orderform.backup %>
+                                <%= link_to print_order_orderform_path(@order, orderform) do %>
+                                    <img src="/images/status/backup_icon.png" alt="Backup versie" class="edit_icon">
+                                <% end %>
+                            <% else %>
+                                <img src="/images/status/checked_icon.png" alt="Huidige versie" class="edit_icon">
+                            <% end %>
+                        <% elsif orderform.status < 2 %>  
+                            <img src="/images/status/unchecked_icon.png" alt="Versie status nog niet bereikt" class="edit_icon">
+                        <% else %>
+                            <%= link_to print_order_orderform_path(@order, orderform) do %>
+                                <img src="/images/status/backup_icon.png" alt="Backup versie" class="edit_icon">
+                            <% end %>
+                        <% end %>
+                    </td>
+                <tr>
+            <% end %>
+        </tbody>
+    </table>
+    <br>
+<% end %>

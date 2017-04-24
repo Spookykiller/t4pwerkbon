@@ -2,9 +2,9 @@
     <p>Filters in/uitklappen</p>
     <ul>
         <li><%= link_to 'Alle orders', root_path, :class => 'filter' %></li>
-        <li><%= link_to 'Lege orders', {:sort => "empty_werkbonnen"}, :class => 'filter' %></li>
-        <li><%= link_to '(Deels) verwerkte orders', {:sort => "backup_werkbonnen"}, :class => 'filter' %></li>
-        <li><%= link_to 'Nog te verwerken orders', {:sort => "yet_to_processed_werkbonnen"}, :class => 'filter' %></li>
+        <li><%= link_to 'Lege orders', {:sort => "empty_orderforms"}, :class => 'filter' %></li>
+        <li><%= link_to '(Deels) verwerkte orders', {:sort => "backup_orderforms"}, :class => 'filter' %></li>
+        <li><%= link_to 'Nog te verwerken orders', {:sort => "yet_to_process_orderforms"}, :class => 'filter' %></li>
     </ul>
 </div>
 

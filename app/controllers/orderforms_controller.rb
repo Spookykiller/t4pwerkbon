@@ -5,7 +5,8 @@ class OrderformsController < ApplicationController
     before_action :find_order, only: [:index, :new, :create, :print, :nextstate, :edit, :update, :destroy]
 
     def index
-        @orderforms = Orderform.where(:order => @order, :group_id => nil).order('werkbon_type ASC')
+        @orderforms = Orderform.where(:order => @order, :group_id => nil, :backup => nil).order('werkbon_type ASC')
+        @backup_orderforms = Orderform.where(:order => @order, :group_id => nil, :backup => true).order('werkbon_type ASC')
     end
     
     def new
@@ -60,11 +61,12 @@ class OrderformsController < ApplicationController
                 redirect_to order_orderforms_path(@order)
                 flash[:alert] = "Er is iets fout gegaan!"
             end
-
         else
-            # redirect en toon alert van fout
+            # laatste status bereikt. Zet orderform op backup.
+            @orderform.update_attribute(:backup, true)
+
             redirect_to order_orderforms_path(@order)
-            flash[:alert] = "Werkbon #{@orderform.name} heeft laatste status bereikt!"
+            flash[:warning] = "Werkbon #{@orderform.name} heeft laatste status bereikt!"
         end
     end
     

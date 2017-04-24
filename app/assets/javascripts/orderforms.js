@@ -72,18 +72,41 @@ $( document ).ready(function() {
 
 });
 
+
+// Automatisch prijs invullen vanuit gekozen invulopties in het formulier. 
+// Een invuloptie kan namelijk een artikel, welke een prijs heeft, met zich mee gekregen hebben.
+// Wanneer er een invuloptie, die gekoppeld is aan een artikel, met een prijs hoger dan 0 euro gekozen wordt, 
+// wordt automatisch de prijs ingevuld 
+
 function selected_values() {
-    var price = 0;
+    // initialiseer de prijs op null
+    var price = null
+    
+    // Zet op alle select options een change listener
     $('select').change(function(){
+        // vind de rij waarbij de veranderde select option hoort
         var row = $(this).closest('tr.row');
         
+        // zoek iedere select option in die rij
         $(row).find('select').each(function(x){
-            if (!isNaN(Number($('option:selected', this).attr('id'))))  {
-                price = price + Number($('option:selected', this).attr('id'));
+            // pak de prijs van het artikel die hoort bij de gekozen optie
+            var selected_option_price = Number($('option:selected', this).attr('id'))
+            
+            // check of de prijs wel een echt nummer is
+            if (!isNaN(selected_option_price))  {
+                // voeg de prijs van de select option toe aan de prijs van de regel
+                price = price + selected_option_price;
             }
         });
-        $(row).find('.item_artikel_prijs').val(Number(price).toFixed(2));
-        price = 0;
+        
+        // check of de totale prijs van de row groter is dan 0
+        if (price > 0) {
+            // vind het bijhorende prijzen vak van de rij en vul deze in met de totale rij prijs, afgerond op 2 decimalen
+            $(row).find('.item_artikel_prijs').val(Number(price).toFixed(2));
+        }
+        
+        // zet de rij prijs weer op null voor de volgende rij
+        price = null;
     });
 }
 

@@ -62,18 +62,15 @@ class OrdersController < ApplicationController
     end
     
     def filtered_orders
-        # Order.joins(:order_states).where(:order_states => { :status => 2 })
-        # Order.joins(:orderforms).group(:id).where(:orderforms => { :status => 1, :backup => nil })
-        # Order.all
         
         # when filter is on all_werkbonnen all werkbonnen get showed up
-        if params[:sort] == "yet_to_processed_werkbonnen"
+        if params[:sort] == "yet_to_process_orderforms"
             #Order.orderforms.where(:backup => nil && :status < 2)
-            Order.joins(:orderforms).group(:id).where("orderforms.backup = ? AND orderforms.status < ?", nil, 2)
-        elsif params[:sort] == "backup_werkbonnen"
-            Order.joins(:orderforms).group(:id).where("orderforms.backup = ? or orderforms.status = ?", nil, 2)
-        elsif params[:sort] == "empty_werkbonnen"
-            Order.includes(:orderforms).where( :orderforms => { :id => nil } )
+            Order.yet_to_process_orderforms
+        elsif params[:sort] == "backup_orderforms"
+            Order.backup_orderforms
+        elsif params[:sort] == "empty_orderforms"
+            Order.empty_orderforms
         else 
             Order.all.order('inmeetdatum ASC')
         end
