@@ -228,6 +228,8 @@ function getWerkbonTypeAfter() {
     }
 }
 
+
+// print functie die aangeroepen wordt op de print orderform pagina
 function printpage() {
     window.print();
 }
