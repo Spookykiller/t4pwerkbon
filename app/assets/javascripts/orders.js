@@ -161,7 +161,6 @@ function getSibDat(obj, key, value, ukKeys) {
             $("#order_project_nummer").val(dat[3]);
             
             $.post("https://updateconnector-koenders.c9users.io/AFAS-ProfitClass-PHP-master/sample/debtor2_AppConnectorGet.php", function( data2 ) {
-                console.log("DATA2: " + data2)
                 var obj2 = JSON.parse(data2);
                 getSibDatDebtor(obj2, 'DebtorId', DebtorId, ['SearchName', 'AdressLine1', 'AdressLine3', 'AdressLine4', 'DebtorName', 'Email', 'TelNr', 'AdressLine1_aflevering', 'AdressLine3_aflevering']);
             });
