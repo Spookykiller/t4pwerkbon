@@ -86,7 +86,7 @@ $( document ).ready(function() {
             source: project_nummer,
             select: function(event, ui) {
                 var item_value = (ui.item.value);
-                getSibDatId(obj, 'ProjectId', item_value, ['ProjectGroup', 'CheckedOut', 'DebtorId', 'Description']);
+                getSibDatId(obj, 'ProjectId', item_value, ['ProjectGroup', 'CheckedOut', 'DebtorId']);
             }
         });
                 
@@ -95,7 +95,7 @@ $( document ).ready(function() {
     });
     
     // Naam klant
-    $.post( "http://www.de4gees.nl/AFAS-ProfitClass-PHP-master/sample/debtor2_AppConnectorGet.php", function( data2 ) {
+    $.post( "https://updateconnector-koenders.c9users.io/AFAS-ProfitClass-PHP-master/sample/debtor2_AppConnectorGet.php", function( data2 ) {
         var arr = data2;
         var lang = [];
         var obj = JSON.parse(arr);
@@ -176,9 +176,9 @@ function getSibDatId(obj, key, value, ukKeys) {
                 dat.push(obj[i][ukKeys[x]]);
             }
             var DebtorId = (dat[2]);
-            $("#order_project_naam").val(dat[3]);
+            $("#order_debtorid").val(dat[2]);
             
-            $.post( "http://www.de4gees.nl/AFAS-ProfitClass-PHP-master/sample/debtor2_AppConnectorGet.php", function( data2 ) {
+            $.post( "https://updateconnector-koenders.c9users.io/AFAS-ProfitClass-PHP-master/sample/debtor2_AppConnectorGet.php", function( data2 ) {
                 var obj2 = JSON.parse(data2);
                 getSibDatDebtor(obj2, 'DebtorId', DebtorId, ['SearchName', 'AdressLine1', 'AdressLine3', 'AdressLine4', 'DebtorName', 'Email', 'TelNr', 'AdressLine1_aflevering', 'AdressLine3_aflevering']);
             });
@@ -204,9 +204,9 @@ function getSibDatKlant(obj, key, value, ukKeys) {
             $("#order_telefoon").val(dat2[6]);
             $("#navigation_address").val(dat2[7] + dat2[8]);
 
-            $.post( "http://www.de4gees.nl/AFAS-ProfitClass-PHP-master/sample/sample_AppConnectorGet.php", function( data ) {
+            $.post( "https://updateconnector-koenders.c9users.io/AFAS-ProfitClass-PHP-master/sample/sample_AppConnectorGet.php", function( data ) {
                 var obj = JSON.parse(data);
-                getSibDatKlantInfo(obj, 'DebtorId', DebtorId, ['ProjectId', 'Description']);
+                getSibDatKlantInfo(obj, 'DebtorId', DebtorId, ['ProjectId', 'DebtorId']);
             });
         }
     }
@@ -241,7 +241,7 @@ function getSibDatKlantInfo(obj, key, value, ukKeys) {
                 dat.push(obj[i][ukKeys[x]]);
             }
             $("#order_project_nummer").val(dat[0]);
-            $("#order_project_naam").val(dat[1]);
+            $("#order_debtorid").val(dat[1]);
         }
     }
 }
