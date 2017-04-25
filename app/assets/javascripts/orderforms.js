@@ -80,7 +80,7 @@ $( document ).ready(function() {
 
 function selected_values() {
     // initialiseer de prijs op null
-    var price = null
+    var price = null;
     
     // Zet op alle select options een change listener
     $('select').change(function(){

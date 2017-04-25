@@ -60,22 +60,24 @@ $( document ).ready(function() {
     });
 
     // Project naam & project nummer
-    $.post( "http://www.de4gees.nl/AFAS-ProfitClass-PHP-master/sample/sample_AppConnectorGet.php", function( data ) {
+    $.post( "https://updateconnector-koenders.c9users.io/AFAS-ProfitClass-PHP-master/sample/sample_AppConnectorGet.php", function( data ) {
         var arr = data;
-        var lang = [];
+        var debtorId = [];
         var project_nummer = [];
         var obj = JSON.parse(arr);
         $.each(obj, function() {
-            lang.push(this['Description']);
+            if (this['DebtorId']) {
+                debtorId.push(this['DebtorId']);
+            }
             project_nummer.push(this['ProjectId']);
         });
         
-        // Project naam
-        $("#order_project_naam").autocomplete({
-            source: lang,
+        // Debiteurnummer
+        $("#order_debtorid").autocomplete({
+            source: debtorId,
             select: function(event, ui) {
                 var item_value = (ui.item.value);
-                getSibDat(obj, 'Description', item_value, ['ProjectGroup', 'CheckedOut', 'DebtorId', 'ProjectId']);
+                getSibDat(obj, 'DebtorId', item_value, ['ProjectGroup', 'CheckedOut', 'DebtorId', 'ProjectId']);
             }
         });
         
@@ -158,7 +160,8 @@ function getSibDat(obj, key, value, ukKeys) {
             var DebtorId = (dat[2]);
             $("#order_project_nummer").val(dat[3]);
             
-            $.post( "http://www.de4gees.nl/AFAS-ProfitClass-PHP-master/sample/debtor2_AppConnectorGet.php", function( data2 ) {
+            $.post("https://updateconnector-koenders.c9users.io/AFAS-ProfitClass-PHP-master/sample/debtor2_AppConnectorGet.php", function( data2 ) {
+                console.log("DATA2: " + data2)
                 var obj2 = JSON.parse(data2);
                 getSibDatDebtor(obj2, 'DebtorId', DebtorId, ['SearchName', 'AdressLine1', 'AdressLine3', 'AdressLine4', 'DebtorName', 'Email', 'TelNr', 'AdressLine1_aflevering', 'AdressLine3_aflevering']);
             });
