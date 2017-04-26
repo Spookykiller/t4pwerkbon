@@ -1,7 +1,7 @@
 # config valid only for current version of Capistrano
 lock '3.6.1'
 
-set :application, 'werkbon'
+set :application, 't4pwerkbon'
 set :repo_url, 'git@github.com:Spookykiller/t4pwerkbon.git'
 
 # Default branch is :master
