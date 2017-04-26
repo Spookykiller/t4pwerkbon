@@ -5,8 +5,8 @@ class OrderformsController < ApplicationController
     before_action :find_order, only: [:index, :new, :create, :print, :nextstate, :edit, :update, :destroy]
 
     def index
-        @orderforms = Orderform.where(:order => @order, :group_id => nil, :backup => nil).order('werkbon_type ASC')
-        @backup_orderforms = Orderform.where(:order => @order, :group_id => nil, :backup => true).order('werkbon_type ASC')
+        @orderforms = Orderform.where(:order => @order, :group_id => nil).order('werkbon_type ASC')
+        # @backup_orderforms = Orderform.where(:order => @order, :group_id => nil, :backup => true).order('werkbon_type ASC')
     end
     
     def new

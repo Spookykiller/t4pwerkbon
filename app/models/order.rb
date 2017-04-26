@@ -2,7 +2,6 @@ class Order < ActiveRecord::Base
     has_many :orderforms, dependent: :destroy
     
     validates :inmeetdatum, presence: true
-    validates :email, presence: true
     validates :contactpersoon, presence: true
     
     scope :backup_orderforms, -> { joins(:orderforms).group(:id).where(orderforms: { backup: true, group_id: nil }) }

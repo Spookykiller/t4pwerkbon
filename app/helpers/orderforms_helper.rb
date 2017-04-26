@@ -3,11 +3,11 @@ module OrderformsHelper
     def fase_status_text(status)
         case status
         when 0
-            return "Meting"
+            return "Offerte is akkoord"
         when 1
-            return "Definitief"
+            return "Is gemeten"
         else
-            return "Final"
+            return "Klant is akkoord"
         end
     end
     
