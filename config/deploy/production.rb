@@ -29,7 +29,7 @@ role :db,  %w{t4pwerkbon@gary.bluerail.nl}
 # http://capistranorb.com/documentation/getting-started/configuration/
 # Feel free to add new variables to customise your setup.
 
-set :deploy_to, '/var/www/vhosts/t4pwerkbon.nl/rails'
+set :deploy_to, '/var/www/vhosts/t4pwerkbon.nl/pilot/rails'
 set :branch, 'master'
 
 

@@ -2,7 +2,7 @@
 lock '3.6.1'
 
 set :application, 'werkbon'
-set :repo_url, 'git@github.com:Spookykiller/werkbon.git'
+set :repo_url, 'git@github.com:Spookykiller/t4pwerkbon.git'
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
