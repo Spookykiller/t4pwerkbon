@@ -53,7 +53,7 @@ $( document ).ready(function() {
     });
     
         // Leverancier
-    $.post( "http://www.de4gees.nl/AFAS-ProfitClass-PHP-master/sample/leverancier_AppConnectorGet.php", function( data ) {
+    $.post( "http://www.de4gees.nl/AFAS-ProfitClass-PHP-master/connectors/pilot_leverancier_connector.php", function( data ) {
         
         var arr = data;
         var lang = [];

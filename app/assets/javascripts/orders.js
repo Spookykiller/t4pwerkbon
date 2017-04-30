@@ -60,7 +60,7 @@ $( document ).ready(function() {
     });
 
     // Project naam & project nummer
-    $.post( "https://updateconnector-koenders.c9users.io/AFAS-ProfitClass-PHP-master/sample/sample_AppConnectorGet.php", function( data ) {
+    $.post( "http://www.de4gees.nl/AFAS-ProfitClass-PHP-master/connectors/pilot_projects_connector.php", function( data ) {
         var arr = data;
         var debtorId = [];
         var project_nummer = [];
@@ -95,7 +95,7 @@ $( document ).ready(function() {
     });
     
     // Naam klant
-    $.post( "https://updateconnector-koenders.c9users.io/AFAS-ProfitClass-PHP-master/sample/debtor2_AppConnectorGet.php", function( data2 ) {
+    $.post( "http://www.de4gees.nl/AFAS-ProfitClass-PHP-master/connectors/pilot_debtor_connector.php", function( data2 ) {
         var arr = data2;
         var lang = [];
         var obj = JSON.parse(arr);
@@ -160,7 +160,7 @@ function getSibDat(obj, key, value, ukKeys) {
             var DebtorId = (dat[2]);
             $("#order_project_nummer").val(dat[3]);
             
-            $.post("https://updateconnector-koenders.c9users.io/AFAS-ProfitClass-PHP-master/sample/debtor2_AppConnectorGet.php", function( data2 ) {
+            $.post("http://www.de4gees.nl/AFAS-ProfitClass-PHP-master/connectors/pilot_debtor_connector.php", function( data2 ) {
                 var obj2 = JSON.parse(data2);
                 getSibDatDebtor(obj2, 'DebtorId', DebtorId, ['SearchName', 'AdressLine1', 'AdressLine3', 'AdressLine4', 'DebtorName', 'Email', 'TelNr', 'AdressLine1_aflevering', 'AdressLine3_aflevering']);
             });
@@ -178,7 +178,7 @@ function getSibDatId(obj, key, value, ukKeys) {
             var DebtorId = (dat[2]);
             $("#order_debtorid").val(dat[2]);
             
-            $.post( "https://updateconnector-koenders.c9users.io/AFAS-ProfitClass-PHP-master/sample/debtor2_AppConnectorGet.php", function( data2 ) {
+            $.post( "http://www.de4gees.nl/AFAS-ProfitClass-PHP-master/connectors/pilot_debtor_connector.php", function( data2 ) {
                 var obj2 = JSON.parse(data2);
                 getSibDatDebtor(obj2, 'DebtorId', DebtorId, ['SearchName', 'AdressLine1', 'AdressLine3', 'AdressLine4', 'DebtorName', 'Email', 'TelNr', 'AdressLine1_aflevering', 'AdressLine3_aflevering']);
             });
@@ -204,7 +204,7 @@ function getSibDatKlant(obj, key, value, ukKeys) {
             $("#order_telefoon").val(dat2[6]);
             $("#navigation_address").val(dat2[7] + dat2[8]);
 
-            $.post( "https://updateconnector-koenders.c9users.io/AFAS-ProfitClass-PHP-master/sample/sample_AppConnectorGet.php", function( data ) {
+            $.post( "http://www.de4gees.nl/AFAS-ProfitClass-PHP-master/connectors/pilot_projects_connector.php", function( data ) {
                 var obj = JSON.parse(data);
                 getSibDatKlantInfo(obj, 'DebtorId', DebtorId, ['ProjectId', 'DebtorId']);
             });
