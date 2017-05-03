@@ -17,6 +17,11 @@ $( document ).ready(function() {
         selected_values();
     });
     
+    $('#orderform_details').hide();
+    $('.calculation').hide();
+    $('.exceptions').hide();
+    $('#options').hide();
+
     //hideEmptyCols($("#mytable"));
     
     update_subtotal();
@@ -129,10 +134,15 @@ function update_subtotal() {
 }
 
 function getWerkbonType() {
-    
+
     $('#orderform_werkbon_type').change(function(){
         var value = $(this).val()
-        var item = $('#item_werkbon_type').val();
+        var item = $('#item_orderform_werkbon_type').val();
+       
+        $('#orderform_details').fadeIn( "slow");
+        $('.calculation').fadeIn( "slow");
+        $('.exceptions').fadeIn( "slow");
+        $('#options').fadeIn( "slow");
         
         $('tr.row').each(function () {
             item = $(this).find('#item_werkbon_type').val();
@@ -143,8 +153,6 @@ function getWerkbonType() {
                 $(this).show();
             }
         });
-        
-        $('.calculation').show();
         
         if (value != "Vloeren") {
             $('.vloeren').hide();
@@ -200,10 +208,11 @@ function getWerkbonTypeAfter() {
     $('.karpetten').hide();
 
     $('.meubels_lampen').hide();
-    
-    $('.calculation').show();
 
     switch(value) {
+        case '':
+            
+            break;
         case 'Vloeren':
             $('.vloeren').show();
             break;

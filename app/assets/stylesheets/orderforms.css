@@ -2,6 +2,11 @@
     min-width: 120px;
 }
 
+.exceptions {
+    padding-top: 40px;
+    padding-left: 20px
+}
+
 .leverancier {
     color: #a20000;
     font-size: 14px;
