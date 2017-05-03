@@ -36,10 +36,10 @@
             <%= f.text_field :email, class: 'form-control col-md-7 col-xs-12' %><br>
             
             <%= f.label :contactpersoon, 'Contactpersoon *', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
-            <%= f.text_field :contactpersoon, class: 'form-control col-md-7 col-xs-12' %><br>
+            <%= f.text_field :contactpersoon, class: 'form-control col-md-7 col-xs-12', :required => true %><br>
             
             <%= f.label :inmeetdatum, 'Inmeetdatum *', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
-            <%= f.text_field :inmeetdatum, class: 'form-control col-md-7 col-xs-12' %><br>
+            <%= f.text_field :inmeetdatum, class: 'form-control col-md-7 col-xs-12', :required => true %><br>
             
             <%= f.label :ordernummer, 'Ons ordernummer', class: 'control-label col-md-3 col-sm-3 col-xs-12' %>
             <%= f.text_field :ordernummer, class: 'form-control col-md-7 col-xs-12' %><br>
