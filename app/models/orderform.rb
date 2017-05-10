@@ -6,7 +6,6 @@ class Orderform < ActiveRecord::Base
     accepts_nested_attributes_for :items, reject_if: :all_blank, allow_destroy: true
     accepts_nested_attributes_for :calculations, reject_if: :all_blank, allow_destroy: true
     
-    validates :name, presence: true
     validates :oplevering, presence: true
     validates :organisatie, presence: true
     validates :datum, presence: true
