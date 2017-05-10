@@ -59,7 +59,7 @@
       %td.raam.behang
         = f.select :raam_montage, ["wand", "plafond", "dagkant", "IDD", "ODD"], :include_blank => true
       %td.vouwgordijnen.gordijnen.raam.behang
-        = f.select :plaatsing, ["beton", "steen", "gips", "hout", "metaal"], :include_blank => true
+        = f.select :plaatsing, ["beton", "steen", "gips", "hout", "metaal", "kunststof", "glas"], :include_blank => true
       %td.vouwgordijnen.raam.behang
         = f.number_field :montage_hoogte, :value => (number_with_precision(f.object.montage_hoogte, :precision => 0))
       %td.raam
