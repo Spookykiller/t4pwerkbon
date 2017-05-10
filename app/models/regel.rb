@@ -1,7 +1,7 @@
 class Regel < ActiveRecord::Base
     has_many :articles
-    has_many :dropdowns
-    has_many :second_dropdowns
+    has_many :dropdowns, dependent: :destroy
+    has_many :second_dropdowns, dependent: :destroy
     belongs_to :orderform
     belongs_to :leverancier
 

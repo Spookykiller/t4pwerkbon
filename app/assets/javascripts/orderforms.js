@@ -22,7 +22,7 @@ $( document ).ready(function() {
     $('.exceptions').hide();
     $('#options').hide();
 
-    //hideEmptyCols($("#mytable"));
+    hideEmptyCols();
     
     update_subtotal();
     selected_values();
@@ -243,25 +243,31 @@ function printpage() {
     window.print();
 }
 
-function hideEmptyCols(table) {
-    /*
-        $('#mytable').each(function(a, tbl) {    
-            $(tbl).find('th').each(function(i) {
-                var remove = true;
-                var currentTable = $(this).parents('table');
-                var tds = currentTable.find('tr td:nth-child(' + (i + 1) + ')');
+function hideEmptyCols() {
+
+    $('#mytable').each(function(a, tbl) {    
+        $(tbl).find('th').each(function(i) {
+            var remove = true;
+            var currentTable = $(this).parents('table');
+            var tds = currentTable.find('tr td:nth-child(' + (i + 1) + ')');
+            
+            tds.each(function(j) { 
+                console.log($(this).find('input,textarea,select').val())
                 
-                tds.each(function(j) { 
-                    console.log($(this).find('input[type=text],textarea,select').val())
-                    if ($(this).find('input[type=text],textarea,select').val() != undefined) remove = false; 
-                    
-                });
-                
-                if (remove) {
-                    $(this).hide();
-                    tds.hide();
+                if ($(this).find('input,textarea,select').val().length > 0) {
+                    remove = false
+                } else {
+                    console.log(false)
                 }
             });
+            
+            if (remove) {
+                $(this).hide();
+                tds.hide();
+                console.log($(this).hide())
+            }
+
         });
-    */
+    });
+
 }
