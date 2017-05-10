@@ -244,7 +244,8 @@ function printpage() {
 }
 
 function hideEmptyCols() {
-
+    
+    /*
     $('#mytable').each(function(a, tbl) {    
         $(tbl).find('th').each(function(i) {
             var remove = true;
@@ -269,5 +270,5 @@ function hideEmptyCols() {
 
         });
     });
-
+    */
 }
