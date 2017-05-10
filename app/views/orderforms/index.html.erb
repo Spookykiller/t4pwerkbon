@@ -7,7 +7,7 @@
 <table border="1" style="width:100%">
     <thead>
         <tr>
-            <th colspan="2">Werkbontype</th>
+            <th>Werkbontype</th>
             <th>Naam</th>
             <th>Organisatie</th>            
             <th>Ingevuld door</th>
@@ -22,7 +22,6 @@
     <tbody>
         <% @orderforms.each do |orderform| %>
             <tr>
-                <td class="index"><%= orderform_type_image(orderform.werkbon_type) %></td>
                 <td class="index"><%= orderform.werkbon_type %></td>
                 <td class="index"><%= orderform.name %></td>
                 <td class="index">
