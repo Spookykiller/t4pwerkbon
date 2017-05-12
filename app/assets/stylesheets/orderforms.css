@@ -47,7 +47,7 @@ label.col-xs-12 {
 }
 
 @media print {
-
+    
     body > *:not(.form-label-left) {
         display: none;
     }
