@@ -30,15 +30,15 @@ $( document ).ready(function() {
     $("input:radio[name=printstyle]").click(function() {
         var value = $(this).val();
         if (value == 'geel') {
-            $('#werkbon_totale_prijs').css('color', 'white');
-            $('.item_artikel_prijs').css('color', 'white');
-            $('.item_totaal_prijs').css('color', 'white');
-            $('.item_totaal_arbeid').css('color', 'white');
+            $('#werkbon_totale_prijs').css({opacity: 0});
+            $('.item_artikel_prijs').css({opacity: 0});
+            $('.item_totaal_prijs').css({opacity: 0});
+            $('.item_totaal_arbeid').css({opacity: 0});
         } else {
-            $('#werkbon_totale_prijs').css('color', 'black');
-            $('.item_artikel_prijs').css('color', 'black');
-            $('.item_totaal_prijs').css('color', 'black');
-            $('.item_totaal_arbeid').css('color', 'black');
+            $('#werkbon_totale_prijs').css({opacity: 1});
+            $('.item_artikel_prijs').css({opacity: 1});
+            $('.item_totaal_prijs').css({opacity: 1});
+            $('.item_totaal_arbeid').css({opacity: 1});
         }
     });
     
