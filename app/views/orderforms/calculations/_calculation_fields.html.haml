@@ -62,7 +62,7 @@
         = f.select :plaatsing, ["beton", "steen", "gips", "hout", "metaal", "kunststof", "glas"], :include_blank => true
       %td.vouwgordijnen.raam.behang
         = f.number_field :montage_hoogte, :value => (number_with_precision(f.object.montage_hoogte, :precision => 0))
-      %td.raam
+      %td.raam.calculation_prijs
         = f.number_field :raam_prijs, :step => '0.01'
       %td.actions
         = link_to_remove_association "Verwijder", f

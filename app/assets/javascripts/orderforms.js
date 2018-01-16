@@ -34,11 +34,13 @@ $( document ).ready(function() {
             $('.item_artikel_prijs').css({opacity: 0});
             $('.item_totaal_prijs').css({opacity: 0});
             $('.item_totaal_arbeid').css({opacity: 0});
+            $('.calculation_prijs').css({opacity: 0});
         } else {
             $('#werkbon_totale_prijs').css({opacity: 1});
             $('.item_artikel_prijs').css({opacity: 1});
             $('.item_totaal_prijs').css({opacity: 1});
             $('.item_totaal_arbeid').css({opacity: 1});
+            $('.calculation_prijs').css({opacity: 1});
         }
     });
     
